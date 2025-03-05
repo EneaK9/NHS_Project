@@ -1,0 +1,5 @@
+crawl4ai
+requests-html
+playwright
+beautifulsoup4
+lxml
