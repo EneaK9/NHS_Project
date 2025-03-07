@@ -1,66 +1,75 @@
+import asyncio
 import json
-import time
-from crawl4ai import CrawlerHub
+from crawl4ai import AsyncWebCrawler, CrawlerRunConfig
+from crawl4ai.deep_crawling import BFSDeepCrawlStrategy
+from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
+from bs4 import BeautifulSoup
 
-BASE_URL = "https://www.nhs.uk/conditions/"
-crawler = CrawlerHub()
+OUTPUT_FILE = "nhs_test_single.json"
 
-def scrape_conditions():
-    print("🔄 Scraping all NHS conditions and details...")
+async def scrape_nhs():
+    config = CrawlerRunConfig(
+        deep_crawl_strategy=BFSDeepCrawlStrategy(
+            max_depth=1,
+            include_external=False
+        ),
+        scraping_strategy=LXMLWebScrapingStrategy(),
+        verbose=True
+    )
 
-    # ✅ Step 1: Get the main NHS conditions page
-    page = crawler.fetch_page(BASE_URL)  # Try fetching differently
+    async with AsyncWebCrawler() as crawler:
+        print("🔄 Crawling single NHS condition...")
+        results = await crawler.arun("https://www.nhs.uk/conditions/abdominal-aortic-aneurysm/", 
+                                   config=config, 
+                                   max_requests=1)
 
+        if results:
+            result = results[0]
+            soup = BeautifulSoup(result.html, 'html.parser')
+            
+            main_content = soup.find('main', id='maincontent')
+            
+            if main_content:
+                # Organize content by sections
+                content_sections = []
+                current_section = {"title": "Overview", "paragraphs": []}
+                
+                for elem in main_content.find_all(['h2', 'h3', 'p']):
+                    if elem.name in ['h2', 'h3']:
+                        # Save previous section if it has content
+                        if current_section["paragraphs"]:
+                            content_sections.append(current_section)
+                        # Start new section
+                        current_section = {
+                            "title": elem.get_text(strip=True),
+                            "paragraphs": []
+                        }
+                    elif elem.name == 'p':
+                        text = elem.get_text(strip=True)
+                        if text:  # Only add non-empty paragraphs
+                            current_section["paragraphs"].append(text)
+                
+                # Add the last section
+                if current_section["paragraphs"]:
+                    content_sections.append(current_section)
+                
+                article = {
+                    "title": result.metadata.get("title", "No Title").split(" - ")[0],  # Remove "- NHS" suffix
+                    "url": result.url,
+                    "sections": content_sections
+                }
+            else:
+                article = {
+                    "title": result.metadata.get("title", "No Title"),
+                    "url": result.url,
+                    "sections": [{"title": "Error", "paragraphs": ["No content found"]}]
+                }
 
-    # ✅ Step 2: Find all condition links
-    condition_links = page.find_all("a.nhsuk-card__link, a.nhsuk-list-panel__link")
-
-    articles = []
-    for link in condition_links:
-        title = link.text.strip()
-        url = link["href"] if link["href"].startswith("http") else BASE_URL + link["href"]
-
-        print(f"📌 Found: {title} -> {url}")
-        articles.append({"title": title, "url": url})
-
-    # ✅ Save condition links
-    with open("nhs_conditions.json", "w", encoding="utf-8") as f:
-        json.dump(articles, f, indent=2)
-
-    print(f"✅ {len(articles)} condition links scraped!")
-    return articles
-
-def scrape_condition_details(articles):
-    print("🔄 Scraping all condition details...")
-
-    detailed_articles = []
-
-    for article in articles:
-        print(f"📖 Scraping: {article['title']} ({article['url']})")
-        page = crawler.get(article["url"])
-
-        # ✅ Extract the full condition text
-        content = page.find("div.nhsuk-main-wrapper").text.strip()
-
-        # ✅ Extract any internal NHS links within the condition page
-        internal_links = [link["href"] for link in page.find_all("a") if "nhs.uk" in link["href"]]
-
-        detailed_articles.append({
-            "title": article["title"],
-            "url": article["url"],
-            "content": content,
-            "internal_links": internal_links
-        })
-        
-        time.sleep(2)  # Prevent request blocking
-
-    # ✅ Save full condition details
-    with open("nhs_detailed_articles.json", "w", encoding="utf-8") as f:
-        json.dump(detailed_articles, f, indent=2)
-
-    print(f"✅ {len(detailed_articles)} condition pages scraped with full text!")
-    return detailed_articles
+            print(f"📖 Saving article: {article['title']}")
+            with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+                json.dump(article, f, indent=2, ensure_ascii=False)
+            
+            print(f"✅ Test article saved with {len(article['sections'])} sections")
 
 if __name__ == "__main__":
-    articles = scrape_conditions()
-    scrape_condition_details(articles)
+    asyncio.run(scrape_nhs())
