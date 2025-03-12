@@ -13,7 +13,7 @@ def translate_text(text):
         return text  # Fallback to original text
 
 def translate_articles():
-    with open("scraper/nhs_test_single.json", "r", encoding="utf-8") as f:
+    with open("scraper/nhs_conditions.json", "r", encoding="utf-8") as f:
         articles = json.load(f)
 
     translated_articles = []

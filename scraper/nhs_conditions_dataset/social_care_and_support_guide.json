@@ -1,0 +1,107 @@
+{
+    "title": "Social care and support guide",
+    "url": "https://www.nhs.uk/conditions/social-care-and-support-guide/",
+    "sections": [
+        {
+            "title": "Cookies on the NHS website",
+            "paragraphs": [
+                "We've put some small files called cookies on your device to make our site work.",
+                "We'd also like to use analytics cookies. These collect feedback and send information about how our site is used to services called Adobe Analytics, Adobe Target, Qualtrics Feedback and Google Analytics. We use this information to improve our site.",
+                "Let us know if this is OK. We'll use a cookie to save your choice. You canread more about our cookiesbefore you choose.",
+                "You can change your cookie settings at any time using ourcookies page.",
+                "Back toHealth A to Z",
+                "If you or someone you know needs help with day-to-day living because of illness or disability, this website explains your options and where you can get support."
+            ]
+        },
+        {
+            "title": "Introduction to care and support",
+            "paragraphs": [
+                "A quick guide for people who have care and support needs and their carers"
+            ]
+        },
+        {
+            "title": "Help from social services and charities",
+            "paragraphs": [
+                "Includes helplines, needs assessments, advocacy and reporting abuse"
+            ]
+        },
+        {
+            "title": "Care services, equipment and care homes",
+            "paragraphs": [
+                "Includes home adaptations, help at home from a paid carer, staying safe and housing"
+            ]
+        },
+        {
+            "title": "Money, work and benefits",
+            "paragraphs": [
+                "How to pay for care and support, and where you can get help with costs"
+            ]
+        },
+        {
+            "title": "Care after a hospital stay",
+            "paragraphs": [
+                "Includes hospital discharge and care and support afterwards"
+            ]
+        },
+        {
+            "title": "Support and benefits for carers",
+            "paragraphs": [
+                "Includes carer's assessments, support from local councils, respite care and help for young carers"
+            ]
+        },
+        {
+            "title": "Practical tips if you care for someone",
+            "paragraphs": [
+                "Includes advice on challenging behaviour, moving and lifting people and medicines"
+            ]
+        },
+        {
+            "title": "Caring for children and young people",
+            "paragraphs": [
+                "Services, support and tips if you care for someone under 21, and moving to adult social services"
+            ]
+        },
+        {
+            "title": "Making decisions for someone else",
+            "paragraphs": [
+                "Includes powers of attorney and mental capacity"
+            ]
+        },
+        {
+            "title": "Support links",
+            "paragraphs": [
+                "© Crown copyright"
+            ]
+        }
+    ],
+    "sublinks": [
+        "https://www.nhs.uk/conditions/coronavirus-covid-19/"
+    ],
+    "sublink_articles": [
+        {
+            "title": "COVID-19",
+            "url": "https://www.nhs.uk/conditions/coronavirus-covid-19/",
+            "sections": [
+                {
+                    "title": "Cookies on the NHS website",
+                    "paragraphs": [
+                        "We've put some small files called cookies on your device to make our site work.",
+                        "We'd also like to use analytics cookies. These collect feedback and send information about how our site is used to services called Adobe Analytics, Adobe Target, Qualtrics Feedback and Google Analytics. We use this information to improve our site.",
+                        "Let us know if this is OK. We'll use a cookie to save your choice. You canread more about our cookiesbefore you choose.",
+                        "You can change your cookie settings at any time using ourcookies page.",
+                        "Back toHealth A to Z",
+                        "Get NHS advice about COVID-19, including its symptoms and what to do, how to avoid catching and spreading it, treatments, vaccinations and long-term effects."
+                    ]
+                },
+                {
+                    "title": "Support links",
+                    "paragraphs": [
+                        "© Crown copyright"
+                    ]
+                }
+            ],
+            "sublinks": null,
+            "sublink_articles": []
+        }
+    ]
+}
