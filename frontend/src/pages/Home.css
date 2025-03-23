@@ -1,0 +1,96 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.home-header {
+  width: 100%;
+  padding: 100px 20px; /* Increase padding to make the container bigger */
+  text-align: center;
+  background-image: url('../homepage.png'); /* Add your background image path */
+  background-size: cover; /* Ensure the background covers the entire container */
+  background-position: center; /* Center the background image */
+  color: #16513e; /* Change text color to white for better visibility */
+  border-radius: 8px; /* Add border radius for rounded corners */
+  margin-bottom: 50px; /* Add margin-bottom for spacing */
+}
+
+.home-title {
+  font-size: 48px; /* Increase font size */
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for better readability */
+}
+
+.home-motto {
+  font-size: 24px; /* Increase font size */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for better readability */
+  color: #73ada0;
+}
+
+.content-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 20px;
+}
+
+.article-container {
+  width: 48%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.article-container:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.article-summary {
+  font-size: 16px;
+  color: #666;
+  padding: 20px;
+}
+
+.emergency-container {
+  width: 28%;
+  height: auto; /* Adjust the height to be auto */
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f8d7da;
+  color: #721c24;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content vertically */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  transition: background-color 0.3s; /* Add transition for background color */
+}
+
+.emergency-container:hover {
+  background-color: #f0f0f0; /* Change background color on hover */
+}
+
+.emergency-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.emergency-number {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.emergency-number svg {
+  margin-right: 10px; /* Add space between the icon and the text */
+}
