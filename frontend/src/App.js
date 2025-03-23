@@ -35,7 +35,7 @@ function App() {
         <div className="header-left">
           <img src={Logo1} alt="Logo" className="logo" /> {/* Use Icon instead of icon */}
         </div>
-        <h1 className="header-title">Shendeti Juaj</h1>
+        <h1 className="header-title">Shëndeti Juaj</h1>
         <div className="search-container">
           <input
             type="text"
@@ -53,7 +53,7 @@ function App() {
       <nav className="navbar">
         <ul>
           <li><Link to="/">Kryefaqja</Link></li>
-          <li><Link to="/health-a-z">Shendeti</Link></li>
+          <li><Link to="/health-a-z">Shëndeti</Link></li>
           <li><Link to="/first-aid">Ndihma e pare </Link></li>
         </ul>
       </nav>
@@ -71,7 +71,7 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>© 2025 Shendeti juaj. All rights reserved.</p>
+        <p>© 2025 Shëndeti juaj. All rights reserved.</p>
       </footer>
     </div>
   );
