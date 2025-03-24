@@ -1,32 +1,25 @@
 from flask import Blueprint, jsonify
-from database.db_connection import get_db_connection
+from backend.database.db_connection import get_db_connection
+import psycopg2.extras
 
 conditions_bp = Blueprint("conditions", __name__)
 
-@conditions_bp.route("/conditions", methods=["GET"])
+@conditions_bp.route("/api/conditions")
 def get_conditions():
-    """Fetch all conditions from the database."""
     connection = get_db_connection()
-    cursor = connection.cursor(dictionary=True)
-    
+    cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cursor.execute("SELECT * FROM conditions_albanian")
-    conditions = cursor.fetchall()
-    
+    data = cursor.fetchall()
     cursor.close()
     connection.close()
-    
-    return jsonify(conditions)
+    return jsonify(data)
 
-@conditions_bp.route("/translated-conditions", methods=["GET"])
+@conditions_bp.route("/api/translated-conditions")
 def get_translated_conditions():
-    """Fetch all translated conditions from the database."""
     connection = get_db_connection()
-    cursor = connection.cursor(dictionary=True)
-    
+    cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cursor.execute("SELECT * FROM condition_sections_albanian")
-    sections = cursor.fetchall()
-    
+    data = cursor.fetchall()
     cursor.close()
     connection.close()
-    
-    return jsonify(sections)
+    return jsonify(data)
