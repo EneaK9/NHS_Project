@@ -1,10 +1,16 @@
 from flask import Flask
+from flask_cors import CORS
+from routes.conditions import conditions_bp  # Import the blueprint for API routes
 
 app = Flask(__name__)
+CORS(app)
+
+# Register your API blueprints
+app.register_blueprint(conditions_bp, url_prefix="/api")
 
 @app.route("/")
 def home():
-    return "Backend is running successfully on Railway!"
+    return "Backend is running successfully on Render!"
 
 if __name__ == "__main__":
     from waitress import serve
