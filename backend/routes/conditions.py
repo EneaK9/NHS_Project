@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from backend.database.db_connection import get_db_connection
+from database.db_connection import get_db_connection
 import psycopg2.extras
 
 conditions_bp = Blueprint("conditions", __name__)
