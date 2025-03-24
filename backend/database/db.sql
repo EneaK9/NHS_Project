@@ -22,18 +22,19 @@
 DROP TABLE IF EXISTS `condition_sections_albanian`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `condition_sections_albanian` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `condition_slug` varchar(255) NOT NULL,
-  `section_name` varchar(255) NOT NULL,
-  `section_content` text,
-  `section_order` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `condition_slug` (`condition_slug`),
-  CONSTRAINT `condition_sections_albanian_ibfk_1` FOREIGN KEY (`condition_slug`) REFERENCES `conditions_albanian` (`condition_slug`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE condition_sections_albanian (
+  id SERIAL PRIMARY KEY,
+  condition_slug VARCHAR(255) NOT NULL,
+  section_name VARCHAR(255) NOT NULL,
+  section_content TEXT,
+  section_order INTEGER,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_condition_slug
+    FOREIGN KEY (condition_slug)
+    REFERENCES conditions_albanian(condition_slug)
+    ON DELETE CASCADE
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,17 +54,15 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `conditions_albanian`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `conditions_albanian` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `condition_name` varchar(255) NOT NULL,
-  `condition_slug` varchar(255) NOT NULL,
-  `url` varchar(500) DEFAULT NULL,
-  `full_json` longtext,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `condition_slug` (`condition_slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE conditions_albanian (
+  id SERIAL PRIMARY KEY,
+  condition_name VARCHAR(255) NOT NULL,
+  condition_slug VARCHAR(255) NOT NULL UNIQUE,
+  url VARCHAR(500),
+  full_json TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

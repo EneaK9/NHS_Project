@@ -4,3 +4,4 @@ gunicorn
 mysql-connector-python
 python-dotenv
 waitress
+psycopg2
