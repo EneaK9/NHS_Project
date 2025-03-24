@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "nhsproject-production.up.railway.app"; // New API endpoint
+const API_URL = "https://nhs-project.onrender.com"; // New API endpoint
 
 export const fetchData = async () => {
   try {
