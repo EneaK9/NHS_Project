@@ -1,11 +1,5 @@
-fastapi
-uvicorn
-psycopg2
-requests
-python-dotenv
 flask
 gunicorn
-mysql-connector-python
 flask-cors
-
-
+mysql-connector-python
+python-dotenv
