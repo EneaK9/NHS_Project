@@ -3,6 +3,7 @@ uvicorn
 psycopg2
 requests
 python-dotenv
+flask
 gunicorn
 mysql-connector-python
 
