@@ -3,6 +3,7 @@ import os
 
 def get_db_connection():
     return psycopg2.connect(
+        os.getenv("DATABASE_URL"),
         host=os.environ.get("DB_HOST"),
         database=os.environ.get("DB_NAME"),
         user=os.environ.get("DB_USER"),
