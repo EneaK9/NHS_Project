@@ -7,7 +7,7 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/data")
+    fetch("https://nhs-project.onrender.com/api/translated-conditions")
       .then((response) => response.json())
       .then((dataArray) => {
         const filteredData = dataArray.map(data => {
