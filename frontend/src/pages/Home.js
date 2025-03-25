@@ -1,46 +1,65 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaPhoneAlt } from "react-icons/fa"; // Import the phone icon from react-icons
-import "./Home.css"; // Import the CSS file
+import { FaPhoneAlt } from "react-icons/fa";
+import "./Home.css";
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/data")
+    fetch("https://nhs-project.onrender.com/api/translated-conditions")
       .then((response) => response.json())
-      .then((data) => {
-        const filteredData = data.map(article => {
-          if (article && article.sections && Array.isArray(article.sections)) {
-            // Filter out sections with titles containing "cookies"
-            const filteredSections = article.sections.filter(section => !section.title.toLowerCase().includes("cookies"));
+      .then((rawData) => {
+        // Transform the API rows into grouped condition articles
+        const grouped = {};
 
-            // Filter out paragraphs containing "cookies"
-            const updatedSections = filteredSections.map(section => {
-              return {
-                ...section,
-                paragraphs: section.paragraphs.filter(paragraph => !paragraph.toLowerCase().includes("cookies"))
-              };
-            });
+        rawData.forEach((entry) => {
+          const slug = entry.condition_slug;
 
-            return { ...article, sections: updatedSections };
-          } else {
-            console.error("Fetched data is not in the expected format:", article);
-            return null;
+          if (!grouped[slug]) {
+            grouped[slug] = {
+              title: slug
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (char) => char.toUpperCase()),
+              sections: [],
+            };
           }
-        }).filter(article => article !== null);
+
+          grouped[slug].sections.push({
+            title: entry.section_name,
+            paragraphs: entry.section_content.split("\n"),
+          });
+        });
+
+        const articlesArray = Object.values(grouped);
+
+        // Optional filter to remove "cookies" mentions
+        const filteredData = articlesArray.map((article) => {
+          const filteredSections = article.sections.filter(
+            (section) =>
+              !section.title.toLowerCase().includes("cookies") &&
+              !section.paragraphs.some((p) =>
+                p.toLowerCase().includes("cookies")
+              )
+          );
+
+          return { ...article, sections: filteredSections };
+        });
 
         setArticles(filteredData);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) =>
+        console.error("❌ Error fetching translated conditions:", error)
+      );
   }, []);
 
   const handleContainerClick = (article) => {
-    navigate('/article', { state: { article } });
+    navigate("/article", { state: { article } });
   };
+
   const handleEmergencyClick = () => {
-    navigate('/first-aid');
+    navigate("/first-aid");
   };
 
   if (articles.length === 0) return <p>Loading...</p>;
@@ -52,22 +71,43 @@ const Home = () => {
         <p className="home-motto">Your health, our priority</p>
       </div>
       <div className="content-row">
-        <div className="article-container" onClick={() => handleContainerClick(articles[0])}>
+        <div
+          className="article-container"
+          onClick={() => handleContainerClick(articles[0])}
+        >
           <h1 className="article-title">{articles[0].title}</h1>
-          <p className="article-summary">{articles[0].sections[0]?.paragraphs[0]}</p>
+          <p className="article-summary">
+            {articles[0].sections[0]?.paragraphs[0]}
+          </p>
         </div>
-        <div className="emergency-container" onClick={handleEmergencyClick}>
+        <div
+          className="emergency-container"
+          onClick={handleEmergencyClick}
+        >
           <h2 className="emergency-title">Numrat e emergjencës</h2>
-          <p className="emergency-number"><FaPhoneAlt /> Policia e shtetit: 129</p>
-          <p className="emergency-number"><FaPhoneAlt /> Zjarrfikse: 128</p>
-          <p className="emergency-number"><FaPhoneAlt /> Ambulanca: 127</p>
-          <p className="emergency-number"><FaPhoneAlt /> Sherbimi i emergjencës: 112</p>
+          <p className="emergency-number">
+            <FaPhoneAlt /> Policia e shtetit: 129
+          </p>
+          <p className="emergency-number">
+            <FaPhoneAlt /> Zjarrfikse: 128
+          </p>
+          <p className="emergency-number">
+            <FaPhoneAlt /> Ambulanca: 127
+          </p>
+          <p className="emergency-number">
+            <FaPhoneAlt /> Shërbimi i emergjencës: 112
+          </p>
         </div>
       </div>
       <div className="content-row">
-        <div className="article-container" onClick={() => handleContainerClick(articles[1])}>
+        <div
+          className="article-container"
+          onClick={() => handleContainerClick(articles[1])}
+        >
           <h1 className="article-title">{articles[1].title}</h1>
-          <p className="article-summary">{articles[1].sections[0]?.paragraphs[0]}</p>
+          <p className="article-summary">
+            {articles[1].sections[0]?.paragraphs[0]}
+          </p>
         </div>
       </div>
     </div>

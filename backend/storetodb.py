@@ -1,7 +1,6 @@
 import os
 import json
-import mysql.connector
-from mysql.connector import Error
+import psycopg2
 import sys
 from dotenv import load_dotenv
 
@@ -9,44 +8,24 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Database connection parameters
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = os.getenv("DB_PORT", "3302")
-DB_NAME = os.getenv("DB_NAME", "NHS")
-DB_USER = os.getenv("DB_USER", "root")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Path to translated JSON files
 ALBANIAN_OUTPUT_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "backend", "translated_nhs")
 
 
 def connect_to_db():
-    """Connect to MySQL and create the database if not exists."""
+    import urllib.parse as urlparse
+    url = urlparse.urlparse(DATABASE_URL)
     try:
-        # Connect to MySQL server (without selecting a database first)
-        conn = mysql.connector.connect(
-            host=DB_HOST,
-            port=DB_PORT,
-            user=DB_USER,
-            password=DB_PASSWORD
+        return psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
         )
-
-        # Create database if not exists
-        with conn.cursor() as cur:
-            cur.execute(f"CREATE DATABASE IF NOT EXISTS {DB_NAME}")
-            print(f"✅ Database '{DB_NAME}' created or already exists")
-        
-        conn.close()
-
-        # Connect to the database now
-        conn = mysql.connector.connect(
-            host=DB_HOST,
-            port=DB_PORT,
-            database=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD
-        )
-        return conn
-    except Error as e:
+    except psycopg2.Error as e:  # Ensure to catch the correct exception
         print(f"❌ Database connection error: {e}")
         sys.exit(1)
 
@@ -54,35 +33,39 @@ def connect_to_db():
 def create_tables(conn):
     """Create tables for storing conditions and sections."""
     with conn.cursor() as cur:
-        # Main conditions table
+        # Drop tables first to ensure clean schema (optional but safe)
+        cur.execute("DROP TABLE IF EXISTS condition_sections_albanian;")
+        cur.execute("DROP TABLE IF EXISTS conditions_albanian;")
+
+        # Recreate with proper constraints
         cur.execute("""
-        CREATE TABLE IF NOT EXISTS conditions_albanian (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+        CREATE TABLE conditions_albanian (
+            id SERIAL PRIMARY KEY,
             condition_name VARCHAR(255) NOT NULL,
             condition_slug VARCHAR(255) UNIQUE NOT NULL,
             url VARCHAR(500),
-            full_json LONGTEXT, 
+            full_json TEXT, 
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
         """)
 
-        # Sections table
         cur.execute("""
-        CREATE TABLE IF NOT EXISTS condition_sections_albanian (
-            id INT AUTO_INCREMENT PRIMARY KEY,
+        CREATE TABLE condition_sections_albanian (
+            id SERIAL PRIMARY KEY,
             condition_slug VARCHAR(255) NOT NULL,
             section_name VARCHAR(255) NOT NULL,
             section_content TEXT,
             section_order INT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            FOREIGN KEY (condition_slug) REFERENCES conditions_albanian(condition_slug) ON DELETE CASCADE
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (condition_slug) REFERENCES conditions_albanian(condition_slug) ON DELETE CASCADE,
+            UNIQUE (condition_slug, section_name)
         );
         """)
 
         conn.commit()
-        print("✅ Database tables created or already exist")
+        print("✅ Database tables dropped & recreated with constraints")
 
 
 def save_condition_to_db(conn, condition_data, filename):
@@ -100,10 +83,11 @@ def save_condition_to_db(conn, condition_data, filename):
         INSERT INTO conditions_albanian 
             (condition_name, condition_slug, url, full_json)
         VALUES (%s, %s, %s, %s)
-        ON DUPLICATE KEY UPDATE
-            condition_name = VALUES(condition_name),
-            url = VALUES(url),
-            full_json = VALUES(full_json);
+        ON CONFLICT (condition_slug) DO UPDATE SET
+            condition_name = EXCLUDED.condition_name,
+            url = EXCLUDED.url,
+            full_json = EXCLUDED.full_json;
+
         """, (condition_name, condition_slug, url, full_json_str))
 
         # Insert sections
@@ -113,11 +97,11 @@ def save_condition_to_db(conn, condition_data, filename):
 
             cur.execute("""
             INSERT INTO condition_sections_albanian 
-                (condition_slug, section_name, section_content, section_order)
-            VALUES (%s, %s, %s, %s)
-            ON DUPLICATE KEY UPDATE
-                section_content = VALUES(section_content),
-                section_order = VALUES(section_order);
+            (condition_slug, section_name, section_content, section_order)
+        VALUES (%s, %s, %s, %s)
+        ON CONFLICT (condition_slug, section_name) DO UPDATE SET
+            section_content = EXCLUDED.section_content,
+            section_order = EXCLUDED.section_order;
             """, (condition_slug, section_title, section_content, index))
 
         conn.commit()

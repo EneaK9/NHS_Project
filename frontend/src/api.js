@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/data"; // New API endpoint
+// Base URL for the deployed backend
+const API_URL = "https://nhs-project.onrender.com/api";
 
+// Fetch the full translated conditions with sections and paragraphs
 export const fetchData = async () => {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(`${API_URL}/translated-conditions`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error;
+    console.error("❌ Error fetching translated conditions:", error.message);
+    return [];
   }
 };
-
-
