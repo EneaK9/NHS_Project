@@ -4,7 +4,7 @@ import psycopg2.extras
 
 conditions_bp = Blueprint("conditions", __name__)
 
-@conditions_bp.route("/api/conditions")
+@conditions_bp.route("/conditions")
 def get_conditions():
     print("🧪 API hit!")  
     connection = get_db_connection()
@@ -15,7 +15,7 @@ def get_conditions():
     connection.close()
     return jsonify(data)
 
-@conditions_bp.route("/api/translated-conditions")
+@conditions_bp.route("/translated-conditions")
 def get_translated_conditions():
     connection = get_db_connection()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
