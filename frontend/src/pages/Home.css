@@ -9,10 +9,11 @@
   width: 100%;
   padding: 100px 20px; /* Increase padding to make the container bigger */
   text-align: center;
-  background-image: url('../homepage.png'); /* Add your background image path */
-  background-size: cover; /* Ensure the background covers the entire container */
-  background-position: center; /* Center the background image */
+  /*background-image: url('../homepage.png'); /* Add your background image path */
+  /*background-size: cover; /* Ensure the background covers the entire container */
+  /*background-position: center;  Center the background image */
   color: #16513e; /* Change text color to white for better visibility */
+  background-color: #D7ECE2;
   border-radius: 8px; /* Add border radius for rounded corners */
   margin-bottom: 50px; /* Add margin-bottom for spacing */
 }
@@ -33,7 +34,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 1200px;
+  max-width: 900px;
   margin-bottom: 20px;
 }
 

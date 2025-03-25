@@ -1,20 +1,38 @@
 .healthaz-container {
-  padding: 20px; /* Add padding to the parent container */
+  padding: 20px;
+  background: #F2F2F2;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 800px;
+  margin: 2rem auto;
 }
+
 .container {
-    cursor: pointer;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    transition: background-color 0.3s ease;
-    text-align: left;
-  }
-  
-  .container:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .title {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-  }
+  cursor: pointer;
+  margin-bottom: 15px;
+  padding: 1.2rem 1.5rem;
+  border-radius: 8px;
+  background: #FFFFFF;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.container:hover {
+  transform: translateX(5px);
+  border-left-color: #52AB98;
+  background-color: #C8D8E4;
+}
+
+.title {
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 500;
+  color: #2C3333;
+}
+
+@media (max-width: 768px) {
+  .healthaz-container {
+    padding: 0 1rem;
+   }
+}

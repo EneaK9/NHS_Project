@@ -20,6 +20,7 @@ const Article = () => {
           ))}
         </div>
       ))}
+      <h2 className="sub-title">Nenlinqe: </h2>
       <href className="article-sublinks">{article.sublinks}</href>
     </div>
   );

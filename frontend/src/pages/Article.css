@@ -11,11 +11,10 @@
 }
 
 .article-title {
-  text-align: center;
-  margin-bottom: 40px;
-  margin-top: 40px;
-  font-size: 36px; /* Increase the font size */
-
+  font-size: 40px;
+  margin-bottom: 30px;
+  text-align: left;
+  color: #0e3428;
 }
 
 .article-section {
@@ -25,6 +24,7 @@
 .article-section-title {
   text-align: left;
   margin-bottom: 20px;
+  color: #026c4b;
 }
 
 .article-paragraph {
@@ -32,6 +32,12 @@
   margin-left: 10px;
   word-wrap: break-word; /* Ensure long URLs break to the next line */
 
+}
+
+.sub-title {
+  text-align: left;
+  margin-bottom: 20px;
+  color: #026c4b;
 }
 
 .article-sublink {
