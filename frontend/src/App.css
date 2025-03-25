@@ -16,98 +16,167 @@ body {
   height: 100vh;
 }
 
-/* Header with logo, title, and search */
+/* Header with logo, title, nav and search */
 .header {
-  background-color: #63b877;
+  background: rgba(99, 184, 119, 0.95);
+  backdrop-filter: blur(8px);
   color: white;
   display: flex;
-  justify-content: space-between; 
   align-items: center;
-  padding: 15px 20px;
-  position: relative;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  gap: 24px;
 }
 
-/* Logo styling */
 .header-left {
   display: flex;
   align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .logo {
-  width: 80px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
-  margin-right: 10px; /* Add some space between the logo and the title */
+  width: 60px;
+  height: auto;
 }
 
-/* Center title */
 .header-title {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: left;
-  margin-left: 0px; /* Add some spacing from the left edge */
+  font-size: 22px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Navbar */
+.navbar {
+  margin: 0 auto 0 20px;
+}
+
+.navbar ul {
+  list-style-type: none;
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.navbar ul li a:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Search Box with Icon */
 .search-container {
   display: flex;
   align-items: center;
-  background-color: white;
-  border-radius: 5px;
-  padding: 5px 10px;
-  border: none;
-  margin-left: auto; /* Push the search bar to the far right */
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 25px;
+  padding: 5px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  min-width: 200px;
+  margin-left: auto;
+}
+
+.search-container:hover,
+.search-container:focus-within {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .search-box {
   padding: 8px;
   border: none;
   outline: none;
-  width: 180px;
+  width: 100%;
+  background: transparent;
+  color: white;
+  font-size: 0.95rem;
+}
+
+.search-box::placeholder {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .search-icon {
-  color: #0072c6;
+  color: white;
   margin-left: 8px;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: transform 0.2s;
+  flex-shrink: 0;
 }
 
 .search-icon:hover {
-  color: #005bb5;
+  transform: scale(1.1);
 }
 
-.search-icon:active {
-  color: #003f7f;
+@media (max-width: 768px) {
+  .header {
+    gap: 12px;
+    padding: 12px 15px;
+  }
+
+  .header-left {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .logo {
+    width: 40px;
+  }
+
+  .header-title {
+    font-size: 16px;
+  }
+
+  .navbar {
+    flex-shrink: 1;
+    margin: 0;
+  }
+
+  .navbar ul {
+    gap: 8px;
+  }
+
+  .navbar ul li a {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .search-container {
+    min-width: 120px;
+  }
 }
 
-/* Navbar */
-.navbar {
-  background-color: #16513e;
-  padding: 10px 0;
-}
+@media (max-width: 480px) {
+  .header {
+    padding: 10px;
+    gap: 8px;
+  }
 
-.navbar ul {
-  list-style-type: none;
-  display: flex;
-  justify-content: center;
-  flex-wrap: nowrap; /* Ensure navbar stays horizontal */
-}
+  .header-title {
+    display: none;
+  }
 
-.navbar ul li {
-  margin: 0 35px;
-}
+  .navbar ul li a {
+    padding: 4px 8px;
+    font-size: 13px;
+  }
 
-.navbar ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  padding: 8px 12px;
-}
-
-.navbar ul li a:hover {
-  background-color: #63b877;
-  border-radius: 5px;
-  border: 2px solid #16513e; /* Make hover border bigger */
+  .search-container {
+    min-width: 100px;
+  }
 }
 
 /* Full-width content container */
@@ -128,61 +197,4 @@ body {
   text-align: center;
   padding: 10px;
   font-size: 14px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .header-title {
-    font-size: 20px; /* Reduce title size for tablets */
-  }
-
-  .navbar ul li {
-    margin: 0 20px; /* Reduce spacing between navbar items */
-  }
-
-  .search-box {
-    width: 150px; /* Adjust search box size */
-  }
-}
-
-@media (max-width: 768px) {
-  .header {
-    flex-wrap: nowrap; /* Prevent wrapping */
-    justify-content: space-between; /* Keep logo on the left and search bar on the right */
-  }
-
-  .header-title {
-    font-size: 18px; /* Further reduce title size for smaller screens */
-  }
-
-  .navbar ul {
-    flex-wrap: nowrap; /* Ensure navbar stays horizontal */
-  }
-
-  .navbar ul li {
-    margin: 0 10px; /* Reduce spacing further for smaller screens */
-  }
-
-  .search-box {
-    width: 120px; /* Reduce search box width */
-  }
-}
-
-@media (max-width: 480px) {
-  .header-title {
-    font-size: 16px; /* Smallest title size for phones */
-  }
-
-  .logo {
-    width: 60px; /* Reduce logo size for smaller screens */
-  }
-
-  .search-box {
-    width: 100px; /* Further reduce search box width */
-    font-size: 12px;
-  }
-
-  .navbar ul li {
-    margin: 0 5px; /* Reduce spacing for very small screens */
-  }
 }

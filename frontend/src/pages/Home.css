@@ -2,96 +2,147 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .home-header {
   width: 100%;
-  padding: 100px 20px; /* Increase padding to make the container bigger */
+  padding: 120px 20px 60px;
   text-align: center;
-  /*background-image: url('../homepage.png'); /* Add your background image path */
-  /*background-size: cover; /* Ensure the background covers the entire container */
-  /*background-position: center;  Center the background image */
-  color: #16513e; /* Change text color to white for better visibility */
-  background-color: #D7ECE2;
-  border-radius: 8px; /* Add border radius for rounded corners */
-  margin-bottom: 50px; /* Add margin-bottom for spacing */
+  background: linear-gradient(165deg, #D7ECE2 0%, rgba(215, 236, 226, 0.8) 100%);
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
 }
 
 .home-title {
-  font-size: 48px; /* Increase font size */
+  font-size: 3.5rem;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for better readability */
+  color: #16513e;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .home-motto {
-  font-size: 24px; /* Increase font size */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for better readability */
-  color: #73ada0;
+  font-size: 1.5rem;
+  color: #16513e;
+  opacity: 0.9;
+  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .content-row {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 900px;
-  margin-bottom: 20px;
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  padding: 0 20px;
+  gap: 24px;
 }
 
 .article-container {
-  width: 48%;
-  border: 1px solid #ccc;
-  padding: 20px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 30px;
   cursor: pointer;
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(22, 81, 62, 0.1);
 }
 
 .article-container:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  border-color: rgba(22, 81, 62, 0.2);
 }
 
 .article-title {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #16513e;
+  margin-bottom: 15px;
+  font-weight: 600;
 }
 
 .article-summary {
-  font-size: 16px;
-  color: #666;
-  padding: 20px;
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.6;
 }
 
 .emergency-container {
-  width: 28%;
-  height: auto; /* Adjust the height to be auto */
-  border: 1px solid #ccc;
-  padding: 20px;
-  background-color: #f8d7da;
-  color: #721c24;
+  width: 300px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #cc5252 100%);
+  border-radius: 16px;
+  padding: 25px;
+  color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center the content vertically */
-  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
-  transition: background-color 0.3s; /* Add transition for background color */
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 16px rgba(204, 82, 82, 0.15);
 }
 
 .emergency-container:hover {
-  background-color: #f0f0f0; /* Change background color on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(204, 82, 82, 0.25);
 }
 
 .emergency-title {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
 .emergency-number {
-  font-size: 18px;
-  margin-bottom: 10px;
-  text-align: left;
   display: flex;
   align-items: center;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease;
+}
+
+.emergency-number:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .emergency-number svg {
-  margin-right: 10px; /* Add space between the icon and the text */
+  margin-right: 12px;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .content-row {
+    flex-direction: column;
+  }
+  
+  .article-container,
+  .emergency-container {
+    width: 100%;
+  }
+  
+  .home-title {
+    font-size: 2.5rem;
+  }
+  
+  .home-motto {
+    font-size: 1.2rem;
+  }
 }

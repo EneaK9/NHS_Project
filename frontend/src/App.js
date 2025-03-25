@@ -30,12 +30,19 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* Header with logo, title, and search */}
+      {/* Header with logo, title, navigation and search */}
       <header className="header">
         <div className="header-left">
-          <img src={Logo1} alt="Logo" className="logo" /> {/* Use Icon instead of icon */}
+          <img src={Logo1} alt="Logo" className="logo" />
+          <h1 className="header-title">Shëndeti Juaj</h1>
         </div>
-        <h1 className="header-title">Shëndeti Juaj</h1>
+        <nav className="navbar">
+          <ul>
+            <li><Link to="/">Kryefaqja</Link></li>
+            <li><Link to="/health-a-z">Shëndeti</Link></li>
+            <li><Link to="/first-aid">Ndihma e pare</Link></li>
+          </ul>
+        </nav>
         <div className="search-container">
           <input
             type="text"
@@ -48,15 +55,6 @@ function App() {
           <FaSearch className="search-icon" onClick={handleSearch} />
         </div>
       </header>
-
-      {/* Navbar */}
-      <nav className="navbar">
-        <ul>
-          <li><Link to="/">Kryefaqja</Link></li>
-          <li><Link to="/health-a-z">Shëndeti</Link></li>
-          <li><Link to="/first-aid">Ndihma e pare </Link></li>
-        </ul>
-      </nav>
 
       {/* Main Content Area */}
       <main className="content">
