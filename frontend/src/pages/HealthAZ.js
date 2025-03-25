@@ -7,33 +7,47 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://nhs-project.onrender.com/api/translated-conditions")
-      .then((response) => response.json())
-      .then((dataArray) => {
-        const filteredData = dataArray.map(data => {
-          if (data && data.sections && Array.isArray(data.sections)) {
-            // Filter out sections with titles containing "cookies"
-            const filteredSections = data.sections.filter(section => !section.title.toLowerCase().includes("cookies"));
+  fetch("https://nhs-project.onrender.com/api/translated-conditions")
+    .then((response) => response.json())
+    .then((rawData) => {
+      const grouped = {};
 
-            // Filter out paragraphs containing "cookies"
-            const updatedSections = filteredSections.map(section => {
-              return {
-                ...section,
-                paragraphs: section.paragraphs.filter(paragraph => !paragraph.toLowerCase().includes("cookies"))
-              };
-            });
+      rawData.forEach((entry) => {
+        const slug = entry.condition_slug;
 
-            return { ...data, sections: updatedSections };
-          } else {
-            console.error("Fetched data is not in the expected format:", data);
-            return null;
-          }
-        }).filter(data => data !== null);
+        if (!grouped[slug]) {
+          grouped[slug] = {
+            title: slug
+              .replace(/_/g, " ")
+              .replace(/\b\w/g, (char) => char.toUpperCase()),
+            sections: [],
+          };
+        }
 
-        setData(filteredData);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+        grouped[slug].sections.push({
+          title: entry.section_name,
+          paragraphs: entry.section_content.split("\n"),
+        });
+      });
+
+      const articlesArray = Object.values(grouped);
+
+      const filteredData = articlesArray.map((article) => {
+        const filteredSections = article.sections.filter(
+          (section) =>
+            !section.title.toLowerCase().includes("cookies") &&
+            !section.paragraphs.some((p) =>
+              p.toLowerCase().includes("cookies")
+            )
+        );
+
+        return { ...article, sections: filteredSections };
+      });
+
+      setData(filteredData);
+    })
+    .catch((error) => console.error("❌ Error fetching data:", error));
+}, []);
 
   useImperativeHandle(ref, () => ({
     handleSearch(query) {
