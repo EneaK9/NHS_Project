@@ -6,6 +6,7 @@ conditions_bp = Blueprint("conditions", __name__)
 
 @conditions_bp.route("/api/conditions")
 def get_conditions():
+    print("🧪 API hit!")  
     connection = get_db_connection()
     cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cursor.execute("SELECT * FROM conditions_albanian")
