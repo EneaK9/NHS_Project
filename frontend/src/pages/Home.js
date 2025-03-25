@@ -8,33 +8,33 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://nhs-project.onrender.com/api/translated-conditions")
-      .then((response) => response.json())
-      .then((data) => {
-        const filteredData = data.map(article => {
-          if (article && article.sections && Array.isArray(article.sections)) {
-            // Filter out sections with titles containing "cookies"
-            const filteredSections = article.sections.filter(section => !section.title.toLowerCase().includes("cookies"));
+  fetch("https://nhs-project.onrender.com/api/translated-conditions")
+    .then((response) => response.json())
+    .then((data) => {
+      const filteredData = data.map(article => {
+        if (article && article.sections && Array.isArray(article.sections)) {
+          const filteredSections = article.sections.filter(
+            section => !section.title.toLowerCase().includes("cookies")
+          );
 
-            // Filter out paragraphs containing "cookies"
-            const updatedSections = filteredSections.map(section => {
-              return {
-                ...section,
-                paragraphs: section.paragraphs.filter(paragraph => !paragraph.toLowerCase().includes("cookies"))
-              };
-            });
+          const updatedSections = filteredSections.map(section => ({
+            ...section,
+            paragraphs: section.paragraphs.filter(
+              paragraph => !paragraph.toLowerCase().includes("cookies")
+            )
+          }));
 
-            return { ...article, sections: updatedSections };
-          } else {
-            console.error("Fetched data is not in the expected format:", article);
-            return null;
-          }
-        }).filter(article => article !== null);
+          return { ...article, sections: updatedSections };
+        } else {
+          console.error("Unexpected format:", article);
+          return null;
+        }
+      }).filter(Boolean);
 
-        setArticles(filteredData);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+      setArticles(filteredData);
+    })
+    .catch((error) => console.error("Error fetching data:", error));
+}, []);
 
   const handleContainerClick = (article) => {
     navigate('/article', { state: { article } });
