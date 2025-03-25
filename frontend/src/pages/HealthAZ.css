@@ -5,17 +5,20 @@
   max-width: 800px;
   margin: 2rem auto;
 }
+.content {
 
+  background-color: transparent;
+}
 .container {
   cursor: pointer;
   margin-bottom: 15px;
   padding: 1.2rem 1.5rem;
   border-radius: 8px;
-  background: #FFFFFF;
+  background-color: #FFFFFF;
   border-left: 4px solid transparent;
   transition: all 0.3s ease;
   text-align: left;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);*/
 }
 
 .container:hover {
