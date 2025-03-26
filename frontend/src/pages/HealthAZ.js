@@ -6,56 +6,58 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("https://nhs-project.onrender.com/api/translated-conditions")
-      .then((response) => response.json())
-      .then((dataArray) => {
-        // Reorganize the data based on condition_slug
-        const formattedData = dataArray.reduce((acc, item) => {
-          const { condition_slug, condition_name, section_name, section_content, section_order } = item;
+ useEffect(() => {
+  fetch("https://nhs-project.onrender.com/api/translated-conditions")
+    .then((response) => response.json())
+    .then((dataArray) => {
+      console.log("Fetched data: ", dataArray);  // Add this line to inspect data
 
-          // If this condition_slug isn't in the accumulator yet, add it
-          if (!acc[condition_slug]) {
-            acc[condition_slug] = {
-              condition_slug,
-              condition_name,
-              sections: [],
-            };
-          }
+      const formattedData = dataArray.reduce((acc, item) => {
+        const { condition_slug, condition_name, section_name, section_content, section_order } = item;
 
-          // If section_content is a string, split it into paragraphs
-          const paragraphs = typeof section_content === "string" ? section_content.split("\n") : section_content;
+        // If this condition_slug isn't in the accumulator yet, add it
+        if (!acc[condition_slug]) {
+          acc[condition_slug] = {
+            condition_slug,
+            condition_name,
+            sections: [],
+          };
+        }
 
-          // Add the section data under the correct condition
-          acc[condition_slug].sections.push({
-            section_name,
-            section_content: paragraphs,
-            section_order,
-          });
+        // If section_content is a string, split it into paragraphs
+        const paragraphs = typeof section_content === "string" ? section_content.split("\n") : section_content;
 
-          return acc;
-        }, {});
-
-        // Convert the accumulator object back to an array
-        const resultArray = Object.values(formattedData);
-
-        // Optional: Filter out sections containing "cookies"
-        const filteredData = resultArray.map(data => {
-          const filteredSections = data.sections.filter(section => !section.section_name.toLowerCase().includes("cookies"));
-          const updatedSections = filteredSections.map(section => {
-            return {
-              ...section,
-              section_content: section.section_content.filter(paragraph => !paragraph.toLowerCase().includes("cookies"))
-            };
-          });
-
-          return { ...data, sections: updatedSections, title: data.condition_name || "Untitled" };
+        // Add the section data under the correct condition
+        acc[condition_slug].sections.push({
+          section_name,
+          section_content: paragraphs,
+          section_order,
         });
 
-        setData(filteredData);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+        return acc;
+      }, {});
+
+      // Convert the accumulator object back to an array
+      const resultArray = Object.values(formattedData);
+
+      // Optional: Filter out sections containing "cookies"
+      const filteredData = resultArray.map(data => {
+        const filteredSections = data.sections.filter(section => !section.section_name.toLowerCase().includes("cookies"));
+        const updatedSections = filteredSections.map(section => {
+          return {
+            ...section,
+            section_content: section.section_content.filter(paragraph => !paragraph.toLowerCase().includes("cookies"))
+          };
+        });
+
+        return { ...data, sections: updatedSections, title: data.condition_name || "Untitled" };
+      });
+
+      setData(filteredData);
+    })
+    .catch((error) => console.error("Error fetching data:", error));
+}, []);
+
 
   useImperativeHandle(ref, () => ({
     handleSearch(query) {
@@ -63,8 +65,8 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
       const results = data.filter(article => 
         article.title.toLowerCase().includes(lowerCaseQuery) ||
         article.sections.some(section =>
-          section.section_name.toLowerCase().includes(lowerCaseQuery) ||
-          section.section_content.some(paragraph => paragraph.toLowerCase().includes(lowerCaseQuery))
+          section.title.toLowerCase().includes(lowerCaseQuery) ||
+          section.paragraphs.some(paragraph => paragraph.toLowerCase().includes(lowerCaseQuery))
         )
       );
       setSearchResults(results);
