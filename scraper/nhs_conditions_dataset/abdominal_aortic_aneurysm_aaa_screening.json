@@ -18,6 +18,7 @@
             "title": "Why abdominal aortic aneurysm (AAA) screening is done",
             "paragraphs": [
                 "Abdominal aortic aneurysm (AAA) screening is done to check if there are any swellings (aneurysms) in the main blood vessel in your tummy (abdomen), called the aorta. The aorta runs from your heart down to your abdomen.",
+                "<img alt=\"Picture of the human body showing an abdominal aortic aneurysm in the tummy. The aorta runs from the heart down to the tummy before separating into 2 branches and running down the legs.\" class=\"nhsuk-image__img\" sizes=\"\n      (min-width: 1020px) 320px\n      (min-width: 768px) 50vw\n      100vw\n    \" src=\"https://assets.nhs.uk/nhsuk-cms/images/Abdominal_Aortic_Aneurysm.width-320.jpg\" srcset=\"\n      https://assets.nhs.uk/nhsuk-cms/images/Abdominal_Aortic_Aneurysm.width-320.jpg 320w,\n      https://assets.nhs.uk/nhsuk-cms/images/Abdominal_Aortic_Aneurysm.width-510.jpg 510w,\n      https://assets.nhs.uk/nhsuk-cms/images/Abdominal_Aortic_Aneurysm.width-640.jpg 640w,\n      https://assets.nhs.uk/nhsuk-cms/images/Abdominal_Aortic_Aneurysm.width-767.jpg 767w,\n      https://assets.nhs.uk/nhsuk-cms/images/Abdominal_Aortic_Aneurysm.width-1019.jpg 1019w,\n      https://assets.nhs.uk/nhsuk-cms/images/Abdominal_Aortic_Aneurysm.width-1125.jpg 1125w,\n      https://assets.nhs.uk/nhsuk-cms/images/Abdominal_Aortic_Aneurysm.width-1534.jpg 1534w,\n    \"/>",
                 "Multimedia Team - nhs.uk",
                 "AAA screening can help find anabdominal aortic aneurysmearly. This means it can be monitored and treated, if needed, so it's less likely to burst (rupture), which can be life threatening."
             ]
@@ -102,6 +103,12 @@
             ]
         },
         {
+            "title": "Help us improve our website",
+            "paragraphs": [
+                "Can you answer a 5 minute survey about your visit today?"
+            ]
+        },
+        {
             "title": "Support links",
             "paragraphs": [
                 "© Crown copyright"
@@ -109,11 +116,8 @@
         }
     ],
     "sublinks": [
-        "https://www.nhs.uk/conditions/social-care-and-support-guide/",
         "https://www.nhs.uk/conditions/abdominal-aortic-aneurysm/",
-        "https://www.nhs.uk/conditions/ultrasound-scan/",
-        "https://www.nhs.uk/conditions/social-care-and-support-guide/",
-        "https://www.nhs.uk/conditions/coronavirus-covid-19/"
+        "https://www.nhs.uk/conditions/ultrasound-scan/"
     ],
     "sublink_articles": []
 }

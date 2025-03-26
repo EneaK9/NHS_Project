@@ -64,7 +64,9 @@
         {
             "title": "Check if you have a mouth ulcer",
             "paragraphs": [
+                "<img alt=\"A large, white, circular mouth ulcer on the inside of the bottom lip.\" class=\"nhsuk-image__img\" sizes=\"\n      (min-width: 1020px) 320px\n      (min-width: 768px) 50vw\n      100vw\n    \" src=\"https://assets.nhs.uk/nhsuk-cms/images/S_0118_mouth-ulcer_C0345376.original.width-320.jpg\" srcset=\"\n      https://assets.nhs.uk/nhsuk-cms/images/S_0118_mouth-ulcer_C0345376.original.width-320.jpg 320w,\n      https://assets.nhs.uk/nhsuk-cms/images/S_0118_mouth-ulcer_C0345376.original.width-510.jpg 510w,\n      https://assets.nhs.uk/nhsuk-cms/images/S_0118_mouth-ulcer_C0345376.original.width-640.jpg 640w,\n      https://assets.nhs.uk/nhsuk-cms/images/S_0118_mouth-ulcer_C0345376.original.width-767.jpg 767w,\n      https://assets.nhs.uk/nhsuk-cms/images/S_0118_mouth-ulcer_C0345376.original.width-1019.jpg 1019w,\n      https://assets.nhs.uk/nhsuk-cms/images/S_0118_mouth-ulcer_C0345376.original.width-1125.jpg 1125w,\n      https://assets.nhs.uk/nhsuk-cms/images/S_0118_mouth-ulcer_C0345376.original.width-1534.jpg 1534w,\n    \"/>",
                 "DR P. MARAZZI/SCIENCE PHOTO LIBRARY https://www.sciencephoto.com/media/832116/view",
+                "<img alt=\"A large, white, circular mouth ulcer on the underside of the tongue.\" class=\"nhsuk-image__img\" sizes=\"\n      (min-width: 1020px) 320px\n      (min-width: 768px) 50vw\n      100vw\n    \" src=\"https://assets.nhs.uk/nhsuk-cms/images/C0051857-Aphthous_ulcer_on_the_tongue-SPL_1.or.width-320.jpg\" srcset=\"\n      https://assets.nhs.uk/nhsuk-cms/images/C0051857-Aphthous_ulcer_on_the_tongue-SPL_1.or.width-320.jpg 320w,\n      https://assets.nhs.uk/nhsuk-cms/images/C0051857-Aphthous_ulcer_on_the_tongue-SPL_1.or.width-510.jpg 510w,\n      https://assets.nhs.uk/nhsuk-cms/images/C0051857-Aphthous_ulcer_on_the_tongue-SPL_1.or.width-640.jpg 640w,\n      https://assets.nhs.uk/nhsuk-cms/images/C0051857-Aphthous_ulcer_on_the_tongue-SPL_1.or.width-767.jpg 767w,\n      https://assets.nhs.uk/nhsuk-cms/images/C0051857-Aphthous_ulcer_on_the_tongue-SPL_1.o.width-1019.jpg 1019w,\n      https://assets.nhs.uk/nhsuk-cms/images/C0051857-Aphthous_ulcer_on_the_tongue-SPL_1.o.width-1125.jpg 1125w,\n      https://assets.nhs.uk/nhsuk-cms/images/C0051857-Aphthous_ulcer_on_the_tongue-SPL_1.o.width-1534.jpg 1534w,\n    \"/>",
                 "DR P. MARAZZI/SCIENCE PHOTO LIBRARY https://www.sciencephoto.com/media/115960/view",
                 "You may have more than 1 ulcer at a time.",
                 "Mouth ulcers are not contagious and should not be confused withcold sores.",
@@ -78,6 +80,12 @@
                 "Sometimes they're triggered by things you cannot always control, such as:",
                 "If you have several mouth ulcers, it can be a symptom of:",
                 "Page last reviewed: 11 March 2024Next review due: 11 March 2027"
+            ]
+        },
+        {
+            "title": "Help us improve our website",
+            "paragraphs": [
+                "Can you answer a 5 minute survey about your visit today?"
             ]
         },
         {

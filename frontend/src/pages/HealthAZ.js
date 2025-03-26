@@ -1,53 +1,37 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { useNavigate } from "react-router-dom";
-import "./HealthAZ.css"; // Import the CSS file
+import "./HealthAZ.css";
 
 const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-  fetch("https://nhs-project.onrender.com/api/translated-conditions")
-    .then((response) => response.json())
-    .then((rawData) => {
-      const grouped = {};
+    fetch("https://nhs-project.onrender.com/api/translated-conditions")
+      .then((response) => response.json())
+      .then((dataArray) => {
+        const filteredData = dataArray.map(data => {
+          if (data && data.sections && Array.isArray(data.sections)) {
+            const filteredSections = data.sections.filter(section => !section.title.toLowerCase().includes("cookies"));
 
-      rawData.forEach((entry) => {
-        const slug = entry.condition_slug;
+            const updatedSections = filteredSections.map(section => {
+              return {
+                ...section,
+                paragraphs: section.paragraphs.filter(paragraph => !paragraph.toLowerCase().includes("cookies"))
+              };
+            });
 
-        if (!grouped[slug]) {
-          grouped[slug] = {
-            title: slug
-              .replace(/_/g, " ")
-              .replace(/\b\w/g, (char) => char.toUpperCase()),
-            sections: [],
-          };
-        }
+            return { ...data, sections: updatedSections, title: data.title || "Untitled" };
+          } else {
+            console.error("Fetched data is not in the expected format:", data);
+            return null;
+          }
+        }).filter(data => data !== null);
 
-        grouped[slug].sections.push({
-          title: entry.section_name,
-          paragraphs: entry.section_content.split("\n"),
-        });
-      });
-
-      const articlesArray = Object.values(grouped);
-
-      const filteredData = articlesArray.map((article) => {
-        const filteredSections = article.sections.filter(
-          (section) =>
-            !section.title.toLowerCase().includes("cookies") &&
-            !section.paragraphs.some((p) =>
-              p.toLowerCase().includes("cookies")
-            )
-        );
-
-        return { ...article, sections: filteredSections };
-      });
-
-      setData(filteredData);
-    })
-    .catch((error) => console.error("❌ Error fetching data:", error));
-}, []);
+        setData(filteredData);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
 
   useImperativeHandle(ref, () => ({
     handleSearch(query) {

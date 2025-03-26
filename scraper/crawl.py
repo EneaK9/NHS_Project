@@ -85,7 +85,7 @@ async def scrape_nhs_article(url, page):
     content_sections = []
     current_section = {"title": "Overview", "paragraphs": []}
     
-    for elem in soup.find_all(['h2', 'h3', 'p']):
+    for elem in soup.find_all(['h2', 'h3', 'p', 'img']):
         if elem.name in ['h2', 'h3']:
             if current_section["paragraphs"]:
                 content_sections.append(current_section)
@@ -94,7 +94,10 @@ async def scrape_nhs_article(url, page):
             text = elem.get_text(strip=True)
             if text:
                 current_section["paragraphs"].append(text)
-    
+        elif elem.name == 'img' and elem.get("src"):
+            img_tag = str(elem)  # keep the entire <img ...> tag as-is
+            current_section["paragraphs"].append(img_tag)
+
     if current_section["paragraphs"]:
         content_sections.append(current_section)
     
