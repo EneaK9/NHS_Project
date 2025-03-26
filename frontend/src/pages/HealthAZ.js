@@ -17,11 +17,11 @@ useEffect(() => {
         const slug = entry.condition_slug;
 
         if (!grouped[slug]) {
-          // Update the title to fetch from the database directly if it has been translated
+          // Ensure the title is from the database if it exists, otherwise use fallback formatting
           grouped[slug] = {
             title: entry.condition_name || slug
               .replace(/_/g, " ")
-              .replace(/\b\w/g, (char) => char.toUpperCase()), // Fallback title formatting
+              .replace(/\b\w/g, (char) => char.toUpperCase()), // Use slug as fallback
             sections: [],
           };
         }
