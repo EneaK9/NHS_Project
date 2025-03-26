@@ -10,23 +10,44 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
     fetch("https://nhs-project.onrender.com/api/translated-conditions")
       .then((response) => response.json())
       .then((dataArray) => {
-        const filteredData = dataArray.map(data => {
-          if (data && data.sections && Array.isArray(data.sections)) {
-            const filteredSections = data.sections.filter(section => !section.title.toLowerCase().includes("cookies"));
+        // Reorganize the data based on condition_slug
+        const formattedData = dataArray.reduce((acc, item) => {
+          const { condition_slug, condition_name, section_name, section_content, section_order } = item;
 
-            const updatedSections = filteredSections.map(section => {
-              return {
-                ...section,
-                paragraphs: section.paragraphs.filter(paragraph => !paragraph.toLowerCase().includes("cookies"))
-              };
-            });
-
-            return { ...data, sections: updatedSections, title: data.title || "Untitled" };
-          } else {
-            console.error("Fetched data is not in the expected format:", data);
-            return null;
+          // If this condition_slug isn't in the accumulator yet, add it
+          if (!acc[condition_slug]) {
+            acc[condition_slug] = {
+              condition_slug,
+              condition_name,
+              sections: [],
+            };
           }
-        }).filter(data => data !== null);
+
+          // Add the section data under the correct condition
+          acc[condition_slug].sections.push({
+            section_name,
+            section_content,
+            section_order,
+          });
+
+          return acc;
+        }, {});
+
+        // Convert the accumulator object back to an array
+        const resultArray = Object.values(formattedData);
+
+        // Optional: Filter out sections containing "cookies"
+        const filteredData = resultArray.map(data => {
+          const filteredSections = data.sections.filter(section => !section.section_name.toLowerCase().includes("cookies"));
+          const updatedSections = filteredSections.map(section => {
+            return {
+              ...section,
+              section_content: section.section_content.filter(paragraph => !paragraph.toLowerCase().includes("cookies"))
+            };
+          });
+
+          return { ...data, sections: updatedSections, title: data.condition_name || "Untitled" };
+        });
 
         setData(filteredData);
       })
@@ -39,8 +60,8 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
       const results = data.filter(article => 
         article.title.toLowerCase().includes(lowerCaseQuery) ||
         article.sections.some(section =>
-          section.title.toLowerCase().includes(lowerCaseQuery) ||
-          section.paragraphs.some(paragraph => paragraph.toLowerCase().includes(lowerCaseQuery))
+          section.section_name.toLowerCase().includes(lowerCaseQuery) ||
+          section.section_content.some(paragraph => paragraph.toLowerCase().includes(lowerCaseQuery))
         )
       );
       setSearchResults(results);
