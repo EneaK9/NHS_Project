@@ -23,10 +23,13 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
             };
           }
 
+          // If section_content is a string, split it into paragraphs
+          const paragraphs = typeof section_content === "string" ? section_content.split("\n") : section_content;
+
           // Add the section data under the correct condition
           acc[condition_slug].sections.push({
             section_name,
-            section_content,
+            section_content: paragraphs,
             section_order,
           });
 
