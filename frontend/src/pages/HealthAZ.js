@@ -6,71 +6,78 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
+ useEffect(() => {
     fetch("https://nhs-project.onrender.com/api/translated-conditions")
       .then((response) => response.json())
-      .then((dataArray) => {
-        const filteredData = dataArray.map((data) => {
-          if (data && data.sections && Array.isArray(data.sections)) {
-            // Filter out sections with titles containing "cookies"
-            const filteredSections = data.sections.filter(
-              (section) => !section.title.toLowerCase().includes("cookies")
-            );
+      .then((rawData) => {
+        // Transform the API rows into grouped condition articles
+        const grouped = {};
 
-            const updatedSections = filteredSections.map((section) => {
-              return {
-                ...section,
-                paragraphs: section.paragraphs.filter(
-                  (paragraph) => !paragraph.toLowerCase().includes("cookies")
-                ),
-              };
-            });
+        rawData.forEach((entry) => {
+          const slug = entry.condition_slug;
 
-            // Ensure we have a title, and fallback to a meaningful default if needed
-            return { ...data, sections: updatedSections, title: data.title || "Untitled" };
-          } else {
-            console.error("Fetched data is not in the expected format:", data);
-            return null;
+          if (!grouped[slug]) {
+            grouped[slug] = {
+              title: slug
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (char) => char.toUpperCase()),
+              sections: [],
+            };
           }
-        }).filter((data) => data !== null);
 
-        setData(filteredData); // Now set data correctly
+          grouped[slug].sections.push({
+            title: entry.section_name,
+            paragraphs: entry.section_content.split("\n"),
+          });
+        });
+
+        const articlesArray = Object.values(grouped);
+
+        // Optional filter to remove "cookies" mentions
+        const filteredData = articlesArray.map((article) => {
+          const filteredSections = article.sections.filter(
+            (section) =>
+              !section.title.toLowerCase().includes("cookies") &&
+              !section.paragraphs.some((p) =>
+                p.toLowerCase().includes("cookies")
+              )
+          );
+
+          return { ...article, sections: filteredSections };
+        });
+
+        setData(filteredData);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) =>
+        console.error("❌ Error fetching translated conditions:", error)
+      );
   }, []);
 
   useImperativeHandle(ref, () => ({
     handleSearch(query) {
       const lowerCaseQuery = query.toLowerCase();
-      const results = data.filter((article) =>
+      const results = data.filter(article => 
         article.title.toLowerCase().includes(lowerCaseQuery) ||
-        article.sections.some(
-          (section) =>
-            section.title.toLowerCase().includes(lowerCaseQuery) ||
-            section.paragraphs.some(
-              (paragraph) => paragraph.toLowerCase().includes(lowerCaseQuery)
-            )
+        article.sections.some(section =>
+          section.title.toLowerCase().includes(lowerCaseQuery) ||
+          section.paragraphs.some(paragraph => paragraph.toLowerCase().includes(lowerCaseQuery))
         )
       );
       setSearchResults(results);
-      navigate("/search");
-    },
+      navigate('/search');
+    }
   }));
 
   if (data.length === 0) return <p>Loading...</p>;
 
   const handleContainerClick = (article) => {
-    navigate("/article", { state: { article } });
+    navigate('/article', { state: { article } });
   };
 
   return (
     <div>
       {data.map((article, index) => (
-        <div
-          key={index}
-          className="container"
-          onClick={() => handleContainerClick(article)}
-        >
+        <div key={index} className="container" onClick={() => handleContainerClick(article)}>
           <h1 className="title">{article.title}</h1>
         </div>
       ))}
