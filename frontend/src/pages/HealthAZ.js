@@ -6,54 +6,52 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-useEffect(() => {
-  fetch("https://nhs-project.onrender.com/api/translated-conditions")
-    .then((response) => response.json())
-    .then((rawData) => {
-      // Transform the API rows into grouped condition articles
-      const grouped = {};
+ useEffect(() => {
+    fetch("https://nhs-project.onrender.com/api/translated-conditions")
+      .then((response) => response.json())
+      .then((rawData) => {
+        // Transform the API rows into grouped condition articles
+        const grouped = {};
 
-      rawData.forEach((entry) => {
-        const slug = entry.condition_slug;
+        rawData.forEach((entry) => {
+          const slug = entry.condition_slug;
 
-        if (!grouped[slug]) {
-          // Ensure the title is from the database if it exists, otherwise use fallback formatting
-          grouped[slug] = {
-            title: entry.condition_name || slug
-              .replace(/_/g, " ")
-              .replace(/\b\w/g, (char) => char.toUpperCase()), // Use slug as fallback
-            sections: [],
-          };
-        }
+          if (!grouped[slug]) {
+            grouped[slug] = {
+              title: slug
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (char) => char.toUpperCase()),
+              sections: [],
+            };
+          }
 
-        grouped[slug].sections.push({
-          title: entry.section_name,
-          paragraphs: entry.section_content.split("\n"),
+          grouped[slug].sections.push({
+            title: entry.section_name,
+            paragraphs: entry.section_content.split("\n"),
+          });
         });
-      });
 
-      const articlesArray = Object.values(grouped);
+        const articlesArray = Object.values(grouped);
 
-      // Optional filter to remove "cookies" mentions
-      const filteredData = articlesArray.map((article) => {
-        const filteredSections = article.sections.filter(
-          (section) =>
-            !section.title.toLowerCase().includes("cookies") &&
-            !section.paragraphs.some((p) =>
-              p.toLowerCase().includes("cookies")
-            )
-        );
+        // Optional filter to remove "cookies" mentions
+        const filteredData = articlesArray.map((article) => {
+          const filteredSections = article.sections.filter(
+            (section) =>
+              !section.title.toLowerCase().includes("cookies") &&
+              !section.paragraphs.some((p) =>
+                p.toLowerCase().includes("cookies")
+              )
+          );
 
-        return { ...article, sections: filteredSections };
-      });
+          return { ...article, sections: filteredSections };
+        });
 
-      setData(filteredData);
-    })
-    .catch((error) =>
-      console.error("❌ Error fetching translated conditions:", error)
-    );
-}, []);
-
+        setData(filteredData);
+      })
+      .catch((error) =>
+        console.error("❌ Error fetching translated conditions:", error)
+      );
+  }, []);
 
   useImperativeHandle(ref, () => ({
     handleSearch(query) {
