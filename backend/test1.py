@@ -1,7 +1,6 @@
 import json
 import os
 import time
-import re
 import requests
 import signal
 import sys
@@ -94,7 +93,7 @@ def translate_text(full_text):
 
         try:
             start_time = time.time()
-            response = requests.post(DEEPSEEK_API_URL, json=payload, headers=headers)
+            response = requests.post(DEEPSEEK_API_URL, json=payload, headers=headers, timeout=60)
 
             if response.status_code == 200:
                 result = response.json()
@@ -154,12 +153,23 @@ def translate_conditions():
                 for section in sub.get("sections", []):
                     preserve_images(section)
 
-            # Translate the content
+            # Translate the content in chunks if it's too long
+            max_chunk_size = 2000  # Max token count per request, you can adjust as needed
             full_text = json.dumps(data, ensure_ascii=False)
-            translated_text = translate_text(full_text)
+            chunks = [full_text[i:i+max_chunk_size] for i in range(0, len(full_text), max_chunk_size)]
 
+            translated_text = ""
+            for chunk in chunks:
+                chunk_translated = translate_text(chunk)
+                translated_text += chunk_translated
+
+            # Log the raw translated text to check its structure
+            print(f"✅ Raw Translated Text: {translated_text[:200]}...")
+
+            # Attempt to parse the translated JSON
             try:
                 translated_article = json.loads(translated_text)
+                print(f"✅ Successfully parsed translated JSON for: {filename}")
             except json.JSONDecodeError:
                 print(f"❌ Failed to parse translated JSON for: {filename}")
                 translated_article = data
@@ -200,6 +210,7 @@ def translate_conditions():
         print(f"🎉 All {total_files} files have been translated successfully!")
     else:
         print(f"⏹️ Translation process stopped. Completed {completed_count}/{total_files} files.")
+
 
 if __name__ == "__main__":
     translate_conditions()

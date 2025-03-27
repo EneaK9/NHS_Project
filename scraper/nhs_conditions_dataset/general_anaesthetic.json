@@ -111,6 +111,12 @@
             ]
         },
         {
+            "title": "Help us improve our website",
+            "paragraphs": [
+                "Can you answer a 5 minute survey about your visit today?"
+            ]
+        },
+        {
             "title": "Support links",
             "paragraphs": [
                 "© Crown copyright"
@@ -178,6 +184,12 @@
                     "title": "Find out more",
                     "paragraphs": [
                         "Page last reviewed: 09 November 2023Next review due: 09 November 2026"
+                    ]
+                },
+                {
+                    "title": "Help us improve our website",
+                    "paragraphs": [
+                        "Can you answer a 5 minute survey about your visit today?"
                     ]
                 },
                 {

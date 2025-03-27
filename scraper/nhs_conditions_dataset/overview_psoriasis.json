@@ -73,6 +73,7 @@
             "title": "Video: psoriasis",
             "paragraphs": [
                 "In this video, an expert explains the impact psoriasis can have on quality of life and the treatment options available.",
+                "<img alt=\"\" loading=\"lazy\" src=\"https://cf-images.eu-west-1.prod.boltdns.net/v1/static/79855382001/42201de4-a335-4e51-a502-569fc3faa509/bf0f127f-c018-4016-a0bc-1441c1c0bf8b/1280x720/match/image.jpg\"/>",
                 "This is a modal window."
             ]
         },
@@ -89,6 +90,12 @@
             "title": "Further information",
             "paragraphs": [
                 "Page last reviewed: 08 April 2022Next review due: 08 April 2025"
+            ]
+        },
+        {
+            "title": "Help us improve our website",
+            "paragraphs": [
+                "Can you answer a 5 minute survey about your visit today?"
             ]
         },
         {

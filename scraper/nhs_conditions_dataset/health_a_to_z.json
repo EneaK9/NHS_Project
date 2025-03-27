@@ -13,6 +13,12 @@
             ]
         },
         {
+            "title": "Help us improve our website",
+            "paragraphs": [
+                "Can you answer a 5 minute survey about your visit today?"
+            ]
+        },
+        {
             "title": "Support links",
             "paragraphs": [
                 "© Crown copyright"
@@ -20,7 +26,6 @@
         }
     ],
     "sublinks": [
-        "https://www.nhs.uk/conditions/",
         "https://www.nhs.uk/conditions/social-care-and-support-guide/",
         "https://www.nhs.uk/conditions/abdominal-aortic-aneurysm-screening/",
         "https://www.nhs.uk/conditions/abdominal-aortic-aneurysm/",
@@ -46,7 +51,8 @@
         "https://www.nhs.uk/conditions/addisons-disease/",
         "https://www.nhs.uk/conditions/adenoidectomy/",
         "https://www.nhs.uk/conditions/adenomyosis/",
-        "https://www.nhs.uk/conditions/cataracts/",
+        "https://www.nhs.uk/conditions/adhd-adults/",
+        "https://www.nhs.uk/conditions/adhd-children-teenagers/",
         "https://www.nhs.uk/conditions/age-related-macular-degeneration-amd/",
         "https://www.nhs.uk/conditions/albinism/",
         "https://www.nhs.uk/conditions/alcohol-misuse/",
@@ -106,7 +112,6 @@
         "https://www.nhs.uk/conditions/athletes-foot/",
         "https://www.nhs.uk/conditions/atopic-eczema/",
         "https://www.nhs.uk/conditions/atrial-fibrillation/",
-        "https://www.nhs.uk/conditions/attention-deficit-hyperactivity-disorder-adhd/",
         "https://www.nhs.uk/conditions/auditory-processing-disorder/",
         "https://www.nhs.uk/conditions/autism/",
         "https://www.nhs.uk/conditions/autosomal-dominant-polycystic-kidney-disease-adpkd/",
@@ -219,6 +224,7 @@
         "https://www.nhs.uk/conditions/cataract-surgery/",
         "https://www.nhs.uk/conditions/cataracts/",
         "https://www.nhs.uk/conditions/childhood-cataracts/",
+        "https://www.nhs.uk/conditions/cataracts/",
         "https://www.nhs.uk/conditions/catarrh/",
         "https://www.nhs.uk/conditions/cavernoma/",
         "https://www.nhs.uk/conditions/cavernous-sinus-thrombosis/",
@@ -371,7 +377,7 @@
         "https://www.nhs.uk/conditions/earache/",
         "https://www.nhs.uk/conditions/perforated-eardrum/",
         "https://www.nhs.uk/conditions/early-or-delayed-puberty/",
-        "https://www.nhs.uk/conditions/early-menopause/",
+        "https://www.nhs.uk/conditions/early-or-premature-menopause/",
         "https://www.nhs.uk/conditions/earwax-build-up/",
         "https://www.nhs.uk/conditions/ebola/",
         "https://www.nhs.uk/conditions/echocardiogram/",
@@ -721,7 +727,7 @@
         "https://www.nhs.uk/conditions/meningitis/",
         "https://www.nhs.uk/conditions/meniscus-tear/",
         "https://www.nhs.uk/conditions/menopause/",
-        "https://www.nhs.uk/conditions/early-menopause/",
+        "https://www.nhs.uk/conditions/early-or-premature-menopause/",
         "https://www.nhs.uk/conditions/period-pain/",
         "https://www.nhs.uk/conditions/mesothelioma/",
         "https://www.nhs.uk/conditions/metabolic-syndrome/",
@@ -751,7 +757,7 @@
         "https://www.nhs.uk/conditions/muscular-dystrophy/",
         "https://www.nhs.uk/conditions/chronic-fatigue-syndrome-cfs/",
         "https://www.nhs.uk/conditions/myasthenia-gravis/",
-        "https://www.nhs.uk/conditions/myelodysplasia/",
+        "https://www.nhs.uk/conditions/myelodysplastic-syndrome-mds/",
         "https://www.nhs.uk/conditions/multiple-myeloma/",
         "https://www.nhs.uk/conditions/short-sightedness/",
         "https://www.nhs.uk/conditions/myositis/",
@@ -1179,7 +1185,6 @@
         "https://www.nhs.uk/conditions/x-ray/",
         "https://www.nhs.uk/conditions/yellow-fever/",
         "https://www.nhs.uk/conditions/zika/",
-        "https://www.nhs.uk/conditions/",
         "https://www.nhs.uk/conditions/social-care-and-support-guide/",
         "https://www.nhs.uk/conditions/coronavirus-covid-19/"
     ],
