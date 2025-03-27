@@ -1,99 +1,177 @@
 .first-aid-container {
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff; /* Match the background color of the page */
-    border-radius: 0; /* Remove border radius */
-    box-shadow: none; /* Remove box shadow */
-    text-align: left;
-  }
-  
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.first-aid-title {
+  font-size: 40px;
+  margin-bottom: 30px;
+  text-align: left;
+  color: #0e3428;
+  font-weight: 600;
+}
+
+.first-aid-intro {
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.first-aid-subtitle {
+  font-size: 30px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #026c4b;
+  font-weight: 600;
+}
+
+.emergency-numbers-container {
+  border: 1px solid rgba(99, 184, 119, 0.3);
+  background-color: rgba(235, 246, 240, 0.5);
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.emergency-numbers-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.emergency-numbers {
+  list-style-type: none;
+  padding-left: 0;
+  flex: 1;
+}
+
+.emergency-numbers li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.emergency-numbers li a {
+  text-decoration: none;
+  color: rgba(99, 184, 119, 0.95);
+  margin-left: 10px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+}
+
+.emergency-numbers li a:hover {
+  background: rgba(99, 184, 119, 0.1);
+  color: #026c4b;
+}
+
+.emergency-icon {
+  width: 150px;
+  height: auto;
+  margin-right: 100px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.emergency-icon:hover {
+  transform: scale(1.05);
+}
+
+.first-aid-note {
+  margin: 20px 0;
+  font-style: italic;
+  text-align: center;
+  color: #666;
+  padding: 15px;
+  background-color: rgba(235, 246, 240, 0.5);
+  border-radius: 8px;
+}
+
+.first-aid-rules,
+.specific-situations ul,
+.important-tips {
+  list-style-type: disc;
+  padding-left: 25px;
+  margin-bottom: 20px;
+}
+
+.first-aid-rules li,
+.specific-situations ul li,
+.important-tips li {
+  margin-bottom: 12px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.first-aid-conclusion {
+  font-size: 16px;
+  margin-top: 30px;
+  text-align: center;
+  color: #026c4b;
+  padding: 20px;
+  background-color: rgba(235, 246, 240, 0.3);
+  border-radius: 8px;
+}
+
+.specific-situations h3 {
+  font-size: 22px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  color: #026c4b;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
   .first-aid-title {
-    font-size: 40px;
-    margin-bottom: 30px;
-    text-align: left;
-    color: #0e3428;
+    font-size: 32px;
   }
-  
-  .first-aid-intro {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-  
+
   .first-aid-subtitle {
-    font-size: 30px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #026c4b;
+    font-size: 24px;
   }
-  
+
   .emergency-numbers-container {
-    border: 1px solid #ccc; /* Add border */
-    background-color: #f8f9fa; /* Add background color */
+    flex-direction: column;
     padding: 20px;
-    border-radius: 8px; /* Add border radius */
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between; /* Distribute space between elements */
-    align-items: center; /* Align items vertically */
   }
-  
-  .emergency-numbers {
-    list-style-type: none;
-    padding-left: 0;
-    flex: 1; /* Allow the list to take up available space */
-  }
-  
-  .emergency-numbers li {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .emergency-numbers li a {
-    text-decoration: none;
-    color: #007bff;
-    margin-left: 10px;
-  }
-  
-  .emergency-numbers li a:hover {
-    text-decoration: underline;
-  }
-  
+
   .emergency-icon {
-    width: 150px; /* Adjust the size of the image */
-    height: auto;
-    margin-right: 100px; /* Add some space between the list and the image */
-    flex-shrink: 0; /* Prevent the image from shrinking */
+    width: 120px;
+    margin: 20px 0 0 0;
+    order: 2;
   }
-  
-  .first-aid-note {
-    margin-top: 10px;
-    font-style: italic;
-    text-align: center;
+
+  .emergency-numbers {
+    width: 100%;
+    order: 1;
   }
-  
-  .first-aid-rules,
-  .specific-situations ul,
-  .important-tips {
-    list-style-type: disc;
-    padding-left: 20px; /* Add padding to move the list to the right */
+}
+
+@media (max-width: 480px) {
+  .first-aid-title {
+    font-size: 28px;
   }
-  
-  .first-aid-rules li,
-  .specific-situations ul li,
-  .important-tips li {
-    margin-bottom: 10px;
-  }
-  
-  .first-aid-conclusion {
-    font-size: 16px;
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .specific-situations h3 {
+
+  .first-aid-subtitle {
     font-size: 20px;
-    margin-top: 20px;
-    margin-bottom: 10px;
   }
+
+  .emergency-numbers-container {
+    padding: 15px;
+  }
+
+  .emergency-icon {
+    width: 100px;
+  }
+}
