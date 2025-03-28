@@ -6,10 +6,11 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
+ useEffect(() => {
     fetch("https://nhs-project.onrender.com/api/translated-conditions")
       .then((response) => response.json())
       .then((rawData) => {
+        // Transform the API rows into grouped condition articles
         const grouped = {};
 
         rawData.forEach((entry) => {
@@ -17,9 +18,9 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
 
           if (!grouped[slug]) {
             grouped[slug] = {
-              title:slug
-                  .replace(/_/g, " ")
-                  .replace(/\b\w/g, (char) => char.toUpperCase()),
+              title: slug
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (char) => char.toUpperCase()),
               sections: [],
             };
           }
@@ -32,6 +33,7 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
 
         const articlesArray = Object.values(grouped);
 
+        // Optional filter to remove "cookies" mentions
         const filteredData = articlesArray.map((article) => {
           const filteredSections = article.sections.filter(
             (section) =>
@@ -46,7 +48,9 @@ const HealthAZ = forwardRef(({ setSearchResults }, ref) => {
 
         setData(filteredData);
       })
-      .catch((error) => console.error("❌ Error fetching data:", error));
+      .catch((error) =>
+        console.error("❌ Error fetching translated conditions:", error)
+      );
   }, []);
 
   useImperativeHandle(ref, () => ({

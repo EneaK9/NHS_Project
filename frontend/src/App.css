@@ -7,7 +7,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #ebf6f0;
+  background-color: #f6f3f0;
 }
 
 .app-container {
@@ -18,7 +18,7 @@ body {
 
 /* Header with logo, title, nav and search */
 .header {
-  background: rgba(99, 184, 119, 0.95);
+  background: #0a8675;
   backdrop-filter: blur(8px);
   color: white;
   display: flex;

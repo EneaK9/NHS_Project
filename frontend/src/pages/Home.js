@@ -69,7 +69,7 @@ const Home = () => {
     <div className="home-container">
       <div className="home-header">
         <h1 className="home-title">Mirë se vini në Shëndetin tuaj</h1>
-        <p className="home-motto">Shëndeti juaj, përkushtimi ynë</p>
+        <p className="home-motto">Shëndeti juaj, përkushtimi ynë.</p>
       </div>
       <div className="content-row">
         <div

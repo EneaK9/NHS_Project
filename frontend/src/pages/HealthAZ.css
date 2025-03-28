@@ -12,23 +12,25 @@
   padding: 1.2rem 1.5rem;
   border-radius: 8px;
   background-color: #FFFFFF;
-  border-left: 4px solid transparent;
+  border: 1px solid #d8e9e6;
+  border-left: 4px solid #d8e9e6;
   transition: all 0.3s ease;
   text-align: left;
-  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);*/
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .container:hover {
   transform: translateX(5px);
-  border-left-color: #52AB98;
-  background-color: #C8D8E4;
+  border-color: #0a8675;
+  border-left-color: #0a8675;
+  background-color: rgba(216, 233, 230, 0.2);
 }
 
 .title {
   font-size: 1.1rem;
   margin: 0;
   font-weight: 500;
-  color: #2C3333;
+  color: #34363a;
 }
 
 @media (max-width: 768px) {

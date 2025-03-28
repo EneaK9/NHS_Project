@@ -14,12 +14,14 @@
   margin-bottom: 40px;
   position: relative;
   overflow: hidden;
+  border-radius: 16px;
+  
 }
 
 .home-title {
   font-size: 3.5rem;
   margin-bottom: 20px;
-  color: #16513e;
+  color: #34363a;
   font-weight: 600;
   letter-spacing: -0.5px;
   animation: fadeInUp 0.8s ease-out;
@@ -61,7 +63,7 @@
   padding: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid rgba(22, 81, 62, 0.1);
+  border: 1px solid #d8e9e6 ;
 }
 
 .article-container:hover {
